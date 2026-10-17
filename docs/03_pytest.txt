@@ -1,0 +1,37 @@
+$ python -m pytest -v
+============================= test session starts =============================
+platform win32, Python 3.12.10
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.15.1, langsmith-0.14.11, asyncio-1.4.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=session, asyncio_default_test_loop_scope=session
+collecting ... collected 26 items
+
+tests/test_erp.py::test_supplier_matching_handles_export_mess[Brightline-SUP-1002] PASSED [  3%]
+tests/test_erp.py::test_supplier_matching_handles_export_mess[brightline bearings-SUP-1002] PASSED [  7%]
+tests/test_erp.py::test_supplier_matching_handles_export_mess[Pellum Seal Company-SUP-1004] PASSED [ 11%]
+tests/test_erp.py::test_supplier_matching_handles_export_mess[Keystone MRO-SUP-1006] PASSED [ 15%]
+tests/test_erp.py::test_supplier_matching_handles_export_mess[Ostrava Motors-SUP-1003] PASSED [ 19%]
+tests/test_erp.py::test_supplier_matching_handles_export_mess[Tarrant Packaging-SUP-1005] PASSED [ 23%]
+tests/test_erp.py::test_unknown_supplier_returns_none PASSED             [ 26%]
+tests/test_erp.py::test_cost_center_matching[CC-IND1-MAINT-CC-IND1-MAINT] PASSED [ 30%]
+tests/test_erp.py::test_cost_center_matching[Indianapolis maintenance-CC-IND1-MAINT] PASSED [ 34%]
+tests/test_erp.py::test_cost_center_matching[Monterrey maintenance-CC-MTY1-MAINT] PASSED [ 38%]
+tests/test_erp.py::test_cost_center_matching[Dallas DC-CC-DC-DFW] PASSED [ 42%]
+tests/test_erp.py::test_ambiguous_cost_center_is_not_guessed PASSED      [ 46%]
+tests/test_erp.py::test_budget_remaining_counts_open_pos PASSED          [ 50%]
+tests/test_erp.py::test_po_numbers_start_at_seeded_sequence PASSED       [ 53%]
+tests/test_workflow.py::test_manager_approves_under_threshold PASSED     [ 57%]
+tests/test_workflow.py::test_manager_rejects PASSED                      [ 61%]
+tests/test_workflow.py::test_over_threshold_needs_finance PASSED         [ 65%]
+tests/test_workflow.py::test_finance_rejects PASSED                      [ 69%]
+tests/test_workflow.py::test_exactly_threshold_skips_finance PASSED      [ 73%]
+tests/test_workflow.py::test_probation_supplier_needs_finance_even_when_small PASSED [ 76%]
+tests/test_workflow.py::test_no_decision_sends_reminder_then_expires PASSED [ 80%]
+tests/test_workflow.py::test_blocked_supplier_is_invalid_without_waiting PASSED [ 84%]
+tests/test_workflow.py::test_over_budget_is_invalid PASSED               [ 88%]
+tests/test_workflow.py::test_bad_signals_are_ignored PASSED              [ 92%]
+tests/test_workflow.py::test_create_po_twice_returns_same_po PASSED      [ 96%]
+tests/test_workflow.py::test_retry_after_crash_creates_one_po PASSED     [100%]
+
+============================= 26 passed in 25.86s =============================

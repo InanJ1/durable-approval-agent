@@ -1,0 +1,6 @@
+$ python scripts/hello_temporal.py
+server:   localhost:7233
+workflow: hello-corvane-6dba2797
+result:   Hello, Corvane. Temporal ran this activity.
+history:  11 events
+timing:   workflow start to result 1.11 s; with worker start and graceful shutdown 3.52 s

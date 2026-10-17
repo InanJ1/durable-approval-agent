@@ -1,0 +1,10 @@
+cost_center,name,plant,manager,fy2026_budget_usd,spent_ytd_usd
+CC-IND1-MAINT,IND1 Plant Maintenance,IND1,ind1.maint.manager@corvane.example,485000.00,194048.01
+CC-IND1-PROD,IND1 Pump Assembly,IND1,ind1.prod.manager@corvane.example,550000.00,260569.76
+CC-IND1-CAST,IND1 Casting Line,IND1,ind1.cast.manager@corvane.example,220000.00,216700.00
+CC-IND1-QUAL,IND1 Quality and Test Stands,IND1,ind1.quality.manager@corvane.example,145000.00,94904.64
+CC-MTY1-MAINT,MTY1 Plant Maintenance,MTY1,mty1.maint.manager@corvane.example,425000.00,165377.05
+CC-MTY1-PROD,MTY1 Gearbox Assembly,MTY1,mty1.prod.manager@corvane.example,350000.00,127505.77
+CC-DC-CMH,DC Columbus Operations,DC-CMH,dc.cmh.manager@corvane.example,135000.00,60532.26
+CC-DC-DFW,DC Dallas Operations,DC-DFW,dc.dfw.manager@corvane.example,400000.00,248363.37
+CC-DC-ATL,DC Atlanta Operations,DC-ATL,,435000.00,191172.47

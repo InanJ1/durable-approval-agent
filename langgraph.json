@@ -1,0 +1,9 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "purchase_agent": "./agent/graph.py:graph",
+    "hello": "./agent/hello_graph.py:graph"
+  },
+  "env": ".env",
+  "python_version": "3.12"
+}

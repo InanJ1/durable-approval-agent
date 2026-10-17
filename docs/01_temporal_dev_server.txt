@@ -1,0 +1,19 @@
+$ scripts/temporal_server.sh start
+durable-approval-agent-temporal is up (temporalio/temporal:1.9.1): gRPC localhost:7233, UI http://localhost:8233
+
+$ docker exec durable-approval-agent-temporal temporal operator cluster health
+SERVING
+
+$ docker exec durable-approval-agent-temporal temporal operator namespace describe default
+Warning: Passing the namespace as an argument is now deprecated; please switch to using -n instead
+  NamespaceInfo.Name                    default
+  NamespaceInfo.Id                      01a14827-0ab8-780b-b9a2-ebaa8ea90da5
+  NamespaceInfo.Description              
+  NamespaceInfo.OwnerEmail               
+  NamespaceInfo.State                   Registered
+  NamespaceInfo.Data                    map[]
+  Config.WorkflowExecutionRetentionTtl  24h0m0s
+  ReplicationConfig.ActiveClusterName   active
+
+$ docker ps --filter name=durable-approval-agent
+durable-approval-agent-temporal | temporalio/temporal:1.9.1 | Up 27 seconds | 0.0.0.0:7233->7233/tcp, [::]:7233->7233/tcp, 0.0.0.0:8233->8233/tcp, [::]:8233->8233/tcp

@@ -1,0 +1,6 @@
+{
+  "finance_threshold_usd": 5000,
+  "finance_approver": "finance.controller@corvane.example",
+  "reminder_after_hours": 24,
+  "expire_after_hours": 72
+}

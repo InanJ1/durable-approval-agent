@@ -1,0 +1,11 @@
+supplier_id,name,category,status,payment_terms
+SUP-1001,Halvard Castings,castings,approved,2/10 Net 30
+SUP-1002,Brightline Bearings Inc.,bearings,approved,Net 45
+SUP-1003,Ostrava Motor Works,motors,approved,2/10 Net 30
+SUP-1004,PELLUM SEAL CO,seals,approved,Net 60
+SUP-1005,Tarrant Packaging ,packaging,approved,Net 30
+SUP-1006,Keystone M.R.O. Supply,mro,approved,Net 45
+SUP-1007,Ridgeway Freight,logistics,approved,2/10 Net 30
+SUP-1008,Sierra Madre Fasteners,fasteners,probation,Net 60
+SUP-1009,Quickbuy Surplus Parts,mro,blocked,Net 60
+SUP-1010,Lakeshore Electric Controls,electrical,,Net 45
