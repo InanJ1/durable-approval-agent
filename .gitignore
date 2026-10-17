@@ -1,0 +1,19 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets
+.env
+ui/.env
+
+# Runtime state (ERP SQLite, notifications, logs)
+var/
+
+# LangGraph dev server
+.langgraph_api/
+
+# Node
+ui/node_modules/
+ui/.next/
