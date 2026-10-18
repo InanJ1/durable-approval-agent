@@ -1,7 +1,7 @@
 """Corvane purchasing agent (LangGraph).
 
 agent (LLM + tools) -> tools -> agent ...
-                          \-> prepare_review -> ask_approver (interrupt) -> prepare_review ... -> END
+                          +-> prepare_review -> ask_approver (interrupt) -> prepare_review ... -> END
 
 The LLM only extracts the request and calls tools. Routing into the approval steps is
 deterministic: once a request is submitted or opened for review, the graph reads the
@@ -42,7 +42,7 @@ class AgentState(MessagesState):
 
 
 llm = ChatOpenAI(
-    model=os.environ.get("LLM_MODEL", "qwen2.5:7b"),
+    model=os.environ.get("LLM_MODEL", "qwen2.5:3b"),
     base_url=os.environ.get("LLM_BASE_URL", "http://localhost:11434/v1"),
     api_key=os.environ.get("LLM_API_KEY", "ollama"),
     temperature=0,
