@@ -31,7 +31,7 @@ case "${1:-start}" in
         agent)  launch agent .venv/Scripts/langgraph dev --no-browser --no-reload --port 2024
                 wait_http http://localhost:2024/ok 90 ;;
         ui)     (cd ui && [ -f .env ] || cp .env.example .env)
-                launch ui bash -c "cd ui && npm run dev"
+                launch ui node ui/node_modules/next/dist/bin/next dev ui --port 3000  # node directly, so the PID is stable
                 wait_http http://localhost:3000 180 ;;
       esac
     done
