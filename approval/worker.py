@@ -21,13 +21,14 @@ async def main() -> None:
     with erp.session():  # create the ERP tables and load master data once
         pass
     client = await connect()
+    queue = os.environ.get("APPROVAL_TASK_QUEUE", TASK_QUEUE)  # the durability demo uses its own queue
     with ThreadPoolExecutor(max_workers=4) as pool:
         worker = Worker(
-            client, task_queue=TASK_QUEUE, workflows=[PurchaseApprovalWorkflow],
+            client, task_queue=queue, workflows=[PurchaseApprovalWorkflow],
             activities=[validate_request, create_purchase_order, send_notification],
             activity_executor=pool,
         )
-        logging.info("worker started on %s (pid %d, ERP %s)", TASK_QUEUE, os.getpid(), erp.db_path())
+        logging.info("worker started on %s (pid %d, ERP %s)", queue, os.getpid(), erp.db_path())
         await worker.run()
 
 

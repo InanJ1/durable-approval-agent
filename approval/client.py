@@ -50,10 +50,10 @@ async def start_request(client: Client, req: PurchaseRequest) -> tuple[WorkflowH
 async def get_status(client: Client, request_id: str, timeout_s: float = 5.0) -> RequestStatus:
     """Read the request's state. Completed workflows answer from their result; running
     ones answer a query, which needs a live worker (it fails after timeout_s if none)."""
-    handle = client.get_workflow_handle(request_id)
+    handle = client.get_workflow_handle(request_id, result_type=RequestStatus)
     desc = await handle.describe()
     if desc.status == WorkflowExecutionStatus.COMPLETED:
-        return await handle.result(result_type=RequestStatus)
+        return await handle.result()
     return await handle.query(
         PurchaseApprovalWorkflow.status, result_type=RequestStatus, rpc_timeout=timedelta(seconds=timeout_s),
     )

@@ -1,0 +1,36 @@
+$ python scripts/durability_demo.py
+[   0.1s] request PR-DEMO-111212: $12,400.00, needs manager and finance (threshold $5,000)
+[   7.6s] worker #1 up (pid 26284)
+[   8.2s] workflow is waiting for the manager
+[   8.6s] manager approved; workflow is waiting for finance
+[   9.3s] KILLED worker #1 (pid 26284) while the workflow waits for finance
+[   9.5s] finance approved while NO worker is running; Temporal stored the signal
+[  12.5s] 3 s later: workflow RUNNING, PO rows in ERP = 0
+[  19.1s] worker #2 up (pid 37196)
+[  19.6s] worker #2 replayed history and wrote the PO row (ERP holds the ack for 8 s)
+[  20.3s] KILLED worker #2 (pid 37196) after the ERP commit, before the activity reported back
+[  20.4s] workflow RUNNING, PO rows in ERP = 1; Temporal does not know the PO exists yet
+[  26.1s] worker #3 up (pid 40888)
+[  26.1s] waiting for Temporal to time out the lost attempt (start_to_close 15 s) and retry it
+[  36.2s] workflow COMPLETED: state=completed, po=PO-2026-04101
+[  36.9s] KILLED worker #3 (pid 40888) (demo finished)
+
+--- evidence ---
+workflow id:                 PR-DEMO-111212  (Temporal UI: http://localhost:8233/namespaces/default/workflows/PR-DEMO-111212)
+final state:                 completed, PO-2026-04101
+workers killed:              2 (#1 waiting for finance, #2 after ERP commit)
+create_purchase_order:       retried, attempt 2 completed it
+PO rows for PR-DEMO-111212: 1  [(4101, 'PR-DEMO-111212', 12400.0)]
+'PO created' notifications:  1
+worker #2 log:               ['11:12:31 worker[35656] PO PO-2026-04101 for PR-DEMO-111212 (attempt 1, inserted)']
+worker #3 log:               ['11:12:47 worker[27964] PO PO-2026-04101 for PR-DEMO-111212 (attempt 2, already existed, returned existing row)']
+workflow events:
+  2026-10-18T15:12:19+00:00  submitted         ind1.planner@corvane.example asked for $12,400.00 from Brightline Bearings Inc.
+  2026-10-18T15:12:20+00:00  validated         budget left $290,951.99; finance review required
+  2026-10-18T15:12:20+00:00  awaiting_manager  waiting for ind1.maint.manager@corvane.example
+  2026-10-18T15:12:20+00:00  manager_approved  ind1.maint.manager@corvane.example: OK for CNC-03 rebuild
+  2026-10-18T15:12:20+00:00  awaiting_finance  waiting for finance.controller@corvane.example
+  2026-10-18T15:12:31+00:00  finance_approved  finance.controller@corvane.example: Within Q4 plan
+  2026-10-18T15:12:47+00:00  po_created        PO-2026-04101 written to ERP
+
+EXACTLY ONCE: PASS  (total 37.0 s)
