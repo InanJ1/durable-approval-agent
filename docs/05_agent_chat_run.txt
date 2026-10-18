@@ -1,0 +1,30 @@
+$ LLM_MODEL=qwen2.5:3b python scripts/run_chat.py new "I need 40 spindle bearings for CNC-03 from Brightline, total 12400 dollars, charge it to Indianapolis maintenance."
+thread 01a14f8f-6301-7a41-bdf0-196d8fbb586d
+  human: I need 40 spindle bearings for CNC-03 from Brightline, total 12400 dollars, charge it to Indianapolis maintenance.
+  ai -> lookup_supplier({"name": "Brightline"})
+  ai -> lookup_budget({"cost_center": "Indianapolis maintenance"})
+  tool[lookup_supplier]: {"found": true, "supplier_id": "SUP-1002", "name": "Brightline Bearings Inc.", "category": "bearings", "status": "approved", "payment_terms": "Net 45"}
+  tool[lookup_budget]: {"found": true, "cost_center": "CC-IND1-MAINT", "name": "IND1 Plant Maintenance", "plant": "IND1", "manager": "ind1.maint.manager@corvane.example", "budget_remaining_usd": 290951.99, "finance_review_above_usd": 5000}
+  ai -> submit_purchase_request({"cost_center": "CC-IND1-MAINT", "supplier": "SUP-1002", "description": "40 spindle bearings for CNC-03", "amount_usd": 12400})
+  tool[submit_purchase_request]: {"submitted": true, "request_id": "PR-4F4E31", "new": true, "cost_center": "CC-IND1-MAINT", "supplier": "Brightline Bearings Inc.", "amount_usd": 12400.0}
+  INTERRUPT manager_approval: Manager approval for PR-4F4E31: $12,400.00 from Brightline Bearings Inc. on CC-IND1-MAINT. Approving signals the Temporal workflow.
+run took 223.0 s; thread status interrupted
+
+$ python scripts/run_chat.py resume 01a14f8f-6301-7a41-bdf0-196d8fbb586d approve
+thread 01a14f8f-6301-7a41-bdf0-196d8fbb586d
+  approver clicks: {"type": "approve"}
+  ai: Sent the manager decision to the workflow: approved by ind1.maint.manager@corvane.example.
+  INTERRUPT finance_approval: Finance approval for PR-4F4E31: $12,400.00 from Brightline Bearings Inc. on CC-IND1-MAINT. Approving signals the Temporal workflow.
+run took 1.2 s; thread status interrupted
+
+$ python scripts/run_chat.py resume 01a14f8f-6301-7a41-bdf0-196d8fbb586d approve
+thread 01a14f8f-6301-7a41-bdf0-196d8fbb586d
+  approver clicks: {"type": "approve"}
+  ai: Sent the finance decision to the workflow: approved by finance.controller@corvane.example.
+  ai: PR-4F4E31 is fully approved by manager (ind1.maint.manager@corvane.example) and finance (finance.controller@corvane.example). PO-2026-04101 for $12,400.00 with Brightline Bearings Inc. is in the ERP.
+run took 1.4 s; thread status idle
+
+$ sqlite3 var/corvane.sqlite "SELECT po_seq, request_id, amount_usd FROM purchase_orders WHERE request_id='PR-4F4E31'"
+[(4101, 'PR-4F4E31', 12400.0)]
+
+LLM latency (qwen2.5:3b, shared CPU Ollama, from var/agent.log timestamps): call 1 179 s (includes model load), call 2 42 s. Approval resumes use no LLM.
