@@ -20,4 +20,3 @@ ui/.next/
 *.egg-info/
 # written by next dev at startup
 ui/AGENTS.md
-ui/CLAUDE.md

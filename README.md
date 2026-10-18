@@ -80,7 +80,7 @@ agent-chat-ui --> langgraph dev (agent/graph.py) --start/signal/query--> Tempora
   repeated submit returns the running workflow instead of starting a second one.
 - `config/policy.json` holds the threshold, finance approver, reminder and expiry hours.
 
-## What's upstream and what I built
+## Built on
 
 Upstream, used as is:
 - `ui/` is [langchain-ai/agent-chat-ui](https://github.com/langchain-ai/agent-chat-ui) (MIT,
