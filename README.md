@@ -1,5 +1,7 @@
 # durable-approval-agent
 
+[![tests](https://github.com/InanJaggi/durable-approval-agent/actions/workflows/tests.yml/badge.svg)](https://github.com/InanJaggi/durable-approval-agent/actions/workflows/tests.yml)
+
 A purchase-request agent for Corvane Industrial (a fictional pump and gearbox manufacturer). An
 employee asks for a purchase in plain language. A LangGraph agent checks the supplier and budget,
 then starts a Temporal workflow that holds the approval state: manager approval, finance approval
